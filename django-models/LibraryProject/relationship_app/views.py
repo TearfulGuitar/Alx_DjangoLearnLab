@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from models import Book
+
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -119,9 +120,9 @@ def member_view(request):
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
     if request.method == 'POST':
-        
             return redirect('book_list')
     else:
+        
      return render(request, 'books/add_book.html',)
 
 # Edit book view
@@ -133,7 +134,7 @@ def edit_book(request, book_id):
     if request.method == 'POST':
             return redirect('book_list')
     else:
-     return render(request, 'books/edit_book.html', )
+     return render(request, 'books/edit_book.html',)
 
 # Delete book view
 
