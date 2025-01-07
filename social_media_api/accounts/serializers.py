@@ -17,3 +17,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = CustomUser.objects.create_user(**validated_data)
         Token.objects.create(user=user)
         return user
+class LoginSerializer(serializers.ModelSerializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
