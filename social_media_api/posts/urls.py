@@ -1,22 +1,14 @@
-from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, CommentViewSet
-
-router = DefaultRouter()
-router.register('posts', PostViewSet, basename='post')
-router.register('comments', CommentViewSet, basename='comment')
-
-urlpatterns = router.urls
-
-
 from django.urls import path, include
+from . import views
+from rest_framework.routers import DefaultRouter
 
-urlpatterns += [
-    path('api/', include('posts.urls')),
-]
+routers = DefaultRouter()
+routers.register('post-view',views.PostViewSet )
+routers.register('comment-view',views.CommentViewSet )
 
-from django.urls import path
-from .views import FeedView
-
-urlpatterns += [
-    path('feed/', FeedView.as_view(), name='feed'),
+urlpatterns = [
+     path('', include(routers.urls)),
+     path('feed/', views.UserFeedView.as_view(), name='user-feed'),
+     path('posts/<int:pk>/like/', views.LikedPostView.as_view(), name='like-post'),
+     path('posts/<int:pk>/unlike/', views.UnlikePostView.as_view(), name='unlike-post'),
 ]
